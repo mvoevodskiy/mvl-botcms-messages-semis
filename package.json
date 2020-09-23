@@ -1,8 +1,8 @@
 {
-  "name": "mvl-blank-project",
-  "version": "0.0.1",
+  "name": "mvl-botcms-messages-semis",
+  "version": "0.0.1-alpha.1",
   "description": "",
-  "main": "src/mvlblankproject.js",
+  "main": "src/mvlbotcmsmessages.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
