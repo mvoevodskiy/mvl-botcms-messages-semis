@@ -1,22 +1,22 @@
 module.exports = (Sequelize) => {
   return [
     {
-      messageId: Sequelize.STRING,
+      messageId: Sequelize.STRING(50),
       replyMessageId: Sequelize.STRING,
       userId: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         defaultValue: ''
       },
       chatId: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         defaultValue: ''
       },
       bridge: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(20),
         defaultValue: ''
       },
       driver: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(20),
         defaultValue: ''
       },
       edited: {
@@ -65,7 +65,7 @@ module.exports = (Sequelize) => {
     {
       indexes: [
         {
-          fields: ['userId', 'chatId', 'messageId', 'bridge'],
+          fields: ['bridge', 'userId', 'chatId', 'messageId'],
           unique: true
         },
         {
