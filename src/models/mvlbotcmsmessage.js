@@ -65,6 +65,9 @@ module.exports = (Sequelize) => {
     {
       indexes: [
         {
+          fields: ['messageId']
+        },
+        {
           fields: ['bridge', 'userId', 'chatId', 'messageId'],
           unique: true
         },
@@ -72,7 +75,10 @@ module.exports = (Sequelize) => {
           fields: ['fwdUserId', 'fwdChatId', 'fwdMessageId'],
         },
         {
-          fields: ['edited', 'deleted']
+          fields: ['deleted']
+        },
+        {
+          fields: ['edited']
         },
         {
           fields: ['replyMessageId']
