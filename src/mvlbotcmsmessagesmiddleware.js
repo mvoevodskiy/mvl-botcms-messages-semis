@@ -1,3 +1,5 @@
+const mt = require('mvtools')
+
 class mvlBotCMSMessagesMiddleware {
   DB = null
   config = {
@@ -41,13 +43,13 @@ class mvlBotCMSMessagesMiddleware {
           case ctx.Message.EVENTS.CHAT_MESSAGE_NEW:
             messages.push({
               where: {
-                messageId: ctx.Message.id,
-                userId: ctx.Message.sender.id,
-                chatId: ctx.Message.chat.id,
+                messageId: String(ctx.Message.id),
+                userId: String(ctx.Message.sender.id),
+                chatId: String(ctx.Message.chat.id),
                 bridge: ctx.Bridge.name,
               },
               fields: {
-                replyMessageId: target.T.empty(ctx.Message.reply.id) ? '' : ctx.Message.reply.id,
+                replyMessageId: target.T.empty(ctx.Message.reply.id) ? '' : String(ctx.Message.reply.id),
                 text: ctx.msg,
                 attachments: JSON.stringify(ctx.Message.attachments),
                 driver: ctx.Bridge.driverName,
@@ -65,9 +67,9 @@ class mvlBotCMSMessagesMiddleware {
             for (let id of ctx.Message.ids) {
               messages.push({
                 where: {
-                  messageId: id,
+                  messageId: String(id),
                   // userId: ctx.Message.sender.id,
-                  chatId: ctx.Message.chat.id,
+                  chatId: String(ctx.Message.chat.id),
                   bridge: ctx.Bridge.name
                 },
                 fields: {
@@ -87,7 +89,7 @@ class mvlBotCMSMessagesMiddleware {
         for (let values of messages) {
           let msg = await this.Model.findOne({ where: values.where })
           if (msg === null) {
-            msg = await this.Model.build(target.MT.merge(values.where, values.defaults))
+            msg = await this.Model.build(mt.merge(values.where, values.defaults))
           }
           msg.set(values.fields)
           await msg.save()
